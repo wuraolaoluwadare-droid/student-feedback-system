@@ -82,12 +82,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'student_feedback_db',
-        'USER': 'root',
-        'PASSWORD': 'Toluwanimi123',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'student_feedback_db_k67y',
+        'USER': 'student_feedback_db_k67y_user',
+        'PASSWORD': 'Hcjihzy9a4RiYvW1cQ8hKG0CAtHAYvxP',
+        'HOST': 'dpg-d8v9tpgg4nts738nskpg-a',
+        'PORT': '5432',
     }
 }
 
