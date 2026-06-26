@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Administrator Login{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-5 col-md-7">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body p-5">
+
+                <div class="text-center mb-4">
+
+                    <h2 class="text-primary">
+
+                        🛠️ Administrator Portal
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Sign in to manage the Student Feedback System
+
+                    </p>
+
+                </div>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Username
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            placeholder="Enter Username"
+                            required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Enter Password"
+                            required>
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary w-100 btn-lg">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

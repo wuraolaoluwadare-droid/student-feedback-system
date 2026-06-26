@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg p-4">
+
+    <h2 class="text-primary text-center">
+        👤 My Profile
+    </h2>
+
+    <hr>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Full Name</th>
+            <td>{{ student.full_name }}</td>
+        </tr>
+
+        <tr>
+            <th>Matric Number</th>
+            <td>{{ student.matric_no }}</td>
+        </tr>
+
+        <tr>
+            <th>Department</th>
+            <td>{{ student.department }}</td>
+        </tr>
+
+        <tr>
+            <th>Level</th>
+            <td>{{ student.level }}</td>
+        </tr>
+
+        <tr>
+            <th>Username</th>
+            <td>{{ student.user.username }}</td>
+        </tr>
+
+    </table>
+
+    <div class="text-center">
+
+        <a href="{% url 'dashboard' %}"
+           class="btn btn-primary">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,418 @@
+{% extends 'admin_portal/base_admin.html' %}
+
+{% block title %}Administrator Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    🛠 Administrator Dashboard
+</h2>
+
+<p class="text-muted">
+    Welcome, <strong>{{ request.user.username }}</strong>.
+    Here's an overview of the Student Feedback Evaluation System.
+</p>
+
+<div class="row">
+
+    <!-- Students -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body text-center">
+
+                <div style="font-size:50px;">
+                    👨‍🎓
+                </div>
+
+                <h1 class="text-primary">
+                    {{ student_count }}
+                </h1>
+
+                <h5>
+                    Students
+                </h5>
+
+                <a href="{% url 'manage_students' %}"
+                   class="btn btn-outline-primary mt-2">
+
+                    View Students
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Lecturers -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body text-center">
+
+                <div style="font-size:50px;">
+                    👨‍🏫
+                </div>
+
+                <h1 class="text-success">
+                    {{ lecturer_count }}
+                </h1>
+
+                <h5>
+                    Lecturers
+                </h5>
+
+                <a href="{% url 'manage_lecturers' %}"
+                   class="btn btn-outline-success mt-2">
+
+                    View Lecturers
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses -->
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body text-center">
+
+                <div style="font-size:50px;">
+                    📚
+                </div>
+
+                <h1 class="text-warning">
+                    {{ course_count }}
+                </h1>
+
+                <h5>
+                    Courses
+                </h5>
+
+                <a href="{% url 'manage_courses' %}"
+                   class="btn btn-outline-warning mt-2">
+
+                    View Courses
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body text-center">
+
+                <div style="font-size:50px;">
+                    📝
+                </div>
+
+                <h1 class="text-info">
+                    {{ feedback_count }}
+                </h1>
+
+                <h5>
+                    Feedback Submitted
+                </h5>
+
+                <a href="{% url 'manage_feedback' %}"
+                   class="btn btn-outline-info mt-2">
+
+                    View Feedback
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Complaints -->
+    <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card border-0 shadow h-100">
+            <div class="card-body text-center">
+
+                <div style="font-size:50px;">
+                    💬
+                </div>
+
+                <h1 class="text-danger">
+                    {{ complaint_count }}
+                </h1>
+
+                <h5>
+                    Anonymous Complaints
+                </h5>
+
+                <a href="{% url 'manage_complaints' %}"
+                   class="btn btn-outline-danger mt-2">
+
+                    View Complaints
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<hr class="my-5">
+
+<h3 class="mb-4">
+    📊 System Analytics
+</h3>
+
+<div class="row">
+
+    <div class="col-lg-7 mb-4">
+
+        <div class="card shadow h-100">
+
+            <div class="card-header bg-primary text-white">
+
+                <h5 class="mb-0">
+                    📊 Feedback by Course
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="feedbackChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-5 mb-4">
+
+        <div class="card shadow h-100">
+
+            <div class="card-header bg-success text-white">
+
+                <h5 class="mb-0">
+                    🥧 Complaint Categories
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="complaintChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<h4 class="mb-3">
+    ⚡ Quick Access
+</h4>
+
+<div class="d-flex flex-wrap gap-3">
+
+    <a href="{% url 'manage_students' %}"
+       class="btn btn-primary">
+
+        👨‍🎓 Students
+
+    </a>
+
+    <a href="{% url 'manage_lecturers' %}"
+       class="btn btn-success">
+
+        👨‍🏫 Lecturers
+
+    </a>
+
+    <a href="{% url 'manage_courses' %}"
+       class="btn btn-warning">
+
+        📚 Courses
+
+    </a>
+
+    <a href="{% url 'manage_feedback' %}"
+       class="btn btn-info text-white">
+
+        📝 Feedback
+
+    </a>
+
+    <a href="{% url 'manage_complaints' %}"
+       class="btn btn-danger">
+
+        💬 Complaints
+
+    </a>
+
+</div>
+
+<script>
+
+<script>
+
+// =============================
+// Feedback by Course
+// =============================
+
+const feedbackCtx = document.getElementById("feedbackChart");
+
+new Chart(feedbackCtx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: {{ feedback_labels|safe }},
+
+        datasets: [{
+
+            label: "Feedback Submitted",
+
+            data: {{ feedback_data|safe }},
+
+            backgroundColor: "#0d6efd",
+
+            borderRadius: 6
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+
+                display: false
+
+            }
+
+        },
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true,
+
+                ticks: {
+
+                    precision: 0
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+
+// =============================
+// Complaint Categories
+// =============================
+
+const complaintCtx = document.getElementById("complaintChart");
+
+new Chart(complaintCtx, {
+
+    type: "pie",
+
+    data: {
+
+        labels: {{ complaint_labels|safe }},
+
+        datasets: [{
+
+            data: {{ complaint_data|safe }},
+
+            backgroundColor: [
+
+                "#0d6efd",
+                "#198754",
+                "#ffc107",
+                "#dc3545",
+                "#6610f2"
+
+            ]
+
+        }]
+
+    },
+
+    options: {
+
+        responsive: true
+
+    }
+
+});
+
+<hr class="my-5">
+
+<h3 class="mb-4">
+    ⭐ Average Ratings
+</h3>
+
+<div class="row">
+
+    <div class="col-md-3 mb-3">
+        <div class="card border-primary shadow">
+            <div class="card-body text-center">
+                <h5>Teaching</h5>
+                <h2 class="text-primary">{{ avg_teaching }}/5</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card border-success shadow">
+            <div class="card-body text-center">
+                <h5>Communication</h5>
+                <h2 class="text-success">{{ avg_communication }}/5</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card border-warning shadow">
+            <div class="card-body text-center">
+                <h5>Punctuality</h5>
+                <h2 class="text-warning">{{ avg_punctuality }}/5</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card border-danger shadow">
+            <div class="card-body text-center">
+                <h5>Course Materials</h5>
+                <h2 class="text-danger">{{ avg_material }}/5</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</script>
+
+</script>
+
+{% endblock %}

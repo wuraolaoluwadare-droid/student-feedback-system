@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}My Feedback{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg p-4">
+
+<h2 class="text-primary text-center">
+📜 My Feedback History
+</h2>
+
+<hr>
+
+<table class="table table-striped">
+
+<thead>
+
+<tr>
+
+<th>Course</th>
+<th>Teaching</th>
+<th>Communication</th>
+<th>Punctuality</th>
+<th>Materials</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for feedback in feedbacks %}
+
+<tr>
+
+<td>{{ feedback.course.course_code }}</td>
+
+<td>{{ feedback.teaching_rating }}</td>
+
+<td>{{ feedback.communication_rating }}</td>
+
+<td>{{ feedback.punctuality_rating }}</td>
+
+<td>{{ feedback.course_material_rating }}</td>
+
+<td>{{ feedback.submitted_at }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="6" class="text-center">
+
+No feedback submitted yet.
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<div class="text-center">
+
+<a href="{% url 'dashboard' %}"
+class="btn btn-primary">
+
+← Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+{% endblock %}

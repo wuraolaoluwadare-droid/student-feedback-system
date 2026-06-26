@@ -1,0 +1,67 @@
+body{
+    background:#f5f7fb;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.btn{
+    border-radius:10px;
+}
+
+footer{
+    margin-top:80px;
+}
+.rating{
+
+    font-size:35px;
+
+    color:#d3d3d3;
+
+    cursor:pointer;
+
+}
+
+.rating span{
+
+    margin-right:5px;
+
+}
+
+.rating span.active{
+
+    color:gold;
+
+}
+
+.card h1{
+    font-weight:bold;
+}
+
+.card h4{
+    font-weight:600;
+}
+
+.card{
+    border-radius:15px;
+}
+
+.btn{
+    border-radius:8px;
+}
+
+.card-body{
+    padding:25px;
+}
+
+.navbar-brand{
+    font-size:1.3rem;
+    font-weight:bold;
+}

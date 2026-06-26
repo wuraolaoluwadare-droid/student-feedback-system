@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg p-4 mb-4">
+
+    <h2 class="text-primary">
+        <i class="bi bi-speedometer2"></i>
+        Student Dashboard
+    </h2>
+
+    <hr>
+
+    <h4>
+        Welcome,
+        <span class="text-success">{{ student.full_name }}</span> 👋
+    </h4>
+
+    <div class="row mt-4">
+
+        <div class="col-md-4">
+            <strong>Matric Number</strong><br>
+            {{ student.matric_no }}
+        </div>
+
+        <div class="col-md-4">
+            <strong>Department</strong><br>
+            {{ student.department }}
+        </div>
+
+        <div class="col-md-4">
+            <strong>Level</strong><br>
+            {{ student.level }}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Statistics -->
+
+<h4 class="mb-3">
+    📊 My Statistics
+</h4>
+
+<div class="row mb-5">
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1 class="text-primary">
+
+                    {{ feedback_count }}
+
+                </h1>
+
+                <h5>
+
+                    Feedback Submitted
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1 class="text-success">
+
+                    {{ course_count }}
+
+                </h1>
+
+                <h5>
+
+                    Courses Available
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-3">
+
+        <div class="card text-center shadow">
+
+            <div class="card-body">
+
+                <h1 class="text-warning">
+
+                    2025/2026
+
+                </h1>
+
+                <h5>
+
+                    Academic Session
+
+                </h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Quick Actions -->
+
+<h4 class="mb-3">
+    🚀 Quick Actions
+</h4>
+
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h1>📚</h1>
+
+                <h4>Evaluate Lecturer</h4>
+
+                <a href="{% url 'evaluate' %}"
+                   class="btn btn-primary">
+
+                    Open
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h1>💬</h1>
+
+                <h4>Anonymous Complaint</h4>
+
+                <a href="{% url 'complaint' %}"
+                   class="btn btn-danger">
+
+                    Open
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h1>📜</h1>
+
+                <h4>My Feedback</h4>
+
+                <a href="{% url 'history' %}"
+                   class="btn btn-success">
+
+                    Open
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow text-center">
+
+            <div class="card-body">
+
+                <h1>👤</h1>
+
+                <h4>My Profile</h4>
+
+                <a href="{% url 'profile' %}"
+                   class="btn btn-info text-white">
+
+                    Open
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Recent Activity -->
+
+<div class="card shadow-lg mt-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-3">
+
+            📌 Recent Activity
+
+        </h4>
+
+        {% if feedback_count > 0 %}
+
+            <p>
+
+                ✅ You have submitted
+                <strong>{{ feedback_count }}</strong>
+                feedback evaluation(s).
+
+            </p>
+
+        {% else %}
+
+            <p>
+
+                You have not submitted any lecturer evaluation yet.
+
+            </p>
+
+        {% endif %}
+
+        <a href="{% url 'logout' %}"
+           class="btn btn-secondary">
+
+            🚪 Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

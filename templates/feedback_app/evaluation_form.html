@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Evaluate Lecturer{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-lg p-4">
+
+    <h2 class="text-center text-primary mb-4">
+        ⭐ Lecturer Evaluation Form
+    </h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+
+                Select Course
+
+            </label>
+
+            <select
+                class="form-select"
+                name="course"
+                required>
+
+                <option value="">-- Select Course --</option>
+
+                {% for course in courses %}
+
+                <option value="{{ course.id }}">
+
+                    {{ course.course_code }} - {{ course.course_title }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+
+            <label class="fw-bold">
+                Teaching Effectiveness
+            </label>
+
+            <div class="rating" data-name="teaching_rating"></div>
+
+            <input type="hidden"
+                   name="teaching_rating"
+                   id="teaching_rating">
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="fw-bold">
+                Communication
+            </label>
+
+            <div class="rating" data-name="communication_rating"></div>
+
+            <input type="hidden"
+                   name="communication_rating"
+                   id="communication_rating">
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="fw-bold">
+                Punctuality
+            </label>
+
+            <div class="rating" data-name="punctuality_rating"></div>
+
+            <input type="hidden"
+                   name="punctuality_rating"
+                   id="punctuality_rating">
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="fw-bold">
+                Course Materials
+            </label>
+
+            <div class="rating" data-name="course_material_rating"></div>
+
+            <input type="hidden"
+                   name="course_material_rating"
+                   id="course_material_rating">
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="fw-bold">
+
+                Additional Comment
+
+            </label>
+
+            <textarea
+                class="form-control"
+                rows="4"
+                name="comment"></textarea>
+
+        </div>
+
+        <button
+            class="btn btn-primary btn-lg w-100">
+
+            Submit Feedback
+
+        </button>
+
+    </form>
+
+</div>
+
+<script src="{% static 'js/rating.js' %}"></script>
+
+{% endblock %}
