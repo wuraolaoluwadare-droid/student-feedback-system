@@ -348,6 +348,12 @@ def lecturer_performance(request):
 
         })
 
+        performance = sorted(
+            performance,
+            key=lambda x: x["overall"],
+            reverse=True
+        )
+
     return render(
         request,
         "admin_portal/lecturer_performance.html",

@@ -18,6 +18,8 @@
 
 <tr>
 
+<th>Rank</th>
+
 <th>Lecturer</th>
 
 <th>Feedback</th>
@@ -42,25 +44,45 @@
 
 <tr>
 
-<td>{{ item.lecturer.full_name }}</td>
-
-<td>{{ item.feedbacks }}</td>
-
-<td>{{ item.teaching }}</td>
-
-<td>{{ item.communication }}</td>
-
-<td>{{ item.punctuality }}</td>
-
-<td>{{ item.material }}</td>
-
 <td>
 
-<strong class="text-success">
+{{ forloop.counter }}
 
-⭐ {{ item.overall }}
+</td>
 
-</strong>
+{% if item.overall >= 4.5 %}
+
+<span class="badge bg-success fs-6">
+
+⭐⭐⭐⭐⭐ {{ item.overall }}
+
+</span>
+
+{% elif item.overall >= 3.5 %}
+
+<span class="badge bg-primary fs-6">
+
+⭐⭐⭐⭐ {{ item.overall }}
+
+</span>
+
+{% elif item.overall >= 2.5 %}
+
+<span class="badge bg-warning text-dark fs-6">
+
+⭐⭐⭐ {{ item.overall }}
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger fs-6">
+
+⭐⭐ {{ item.overall }}
+
+</span>
+
+{% endif %}
 
 </td>
 
