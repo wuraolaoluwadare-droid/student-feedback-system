@@ -79,18 +79,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-import os
-import dj_database_url
 
 import os
 import dj_database_url
 
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-        "default": dj_database_url.config(
-            default=os.environ["DATABASE_URL"],
-            conn_max_age=600,
-            ssl_require=False,
+        "default": dj_database_url.parse(
+            os.environ.get("DATABASE_URL")
         )
     }
 else:
@@ -104,7 +100,6 @@ else:
             "PORT": "3306",
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -144,13 +139,15 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"
