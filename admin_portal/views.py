@@ -1,4 +1,4 @@
-from django.db.models import Count, Avg
+from django.db.models import Avg, Count
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -299,4 +299,59 @@ def manage_complaints(request):
         request,
         "admin_portal/complaints.html",
         context
+    )
+
+@login_required(login_url="admin_login")
+def lecturer_performance(request):
+
+    lecturers = Lecturer.objects.all()
+
+    performance = []
+
+    for lecturer in lecturers:
+
+        feedbacks = Feedback.objects.filter(
+            course__lecturer=lecturer
+        )
+
+        total = feedbacks.count()
+
+        averages = feedbacks.aggregate(
+            teaching=Avg("teaching_rating"),
+            communication=Avg("communication_rating"),
+            punctuality=Avg("punctuality_rating"),
+            material=Avg("course_material_rating"),
+        )
+
+        overall = (
+            (averages["teaching"] or 0) +
+            (averages["communication"] or 0) +
+            (averages["punctuality"] or 0) +
+            (averages["material"] or 0)
+        ) / 4
+
+        performance.append({
+
+            "lecturer": lecturer,
+
+            "feedbacks": total,
+
+            "teaching": round(averages["teaching"] or 0, 1),
+
+            "communication": round(averages["communication"] or 0, 1),
+
+            "punctuality": round(averages["punctuality"] or 0, 1),
+
+            "material": round(averages["material"] or 0, 1),
+
+            "overall": round(overall, 1)
+
+        })
+
+    return render(
+        request,
+        "admin_portal/lecturer_performance.html",
+        {
+            "performance": performance
+        }
     )

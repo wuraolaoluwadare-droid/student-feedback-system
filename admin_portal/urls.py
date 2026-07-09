@@ -57,5 +57,11 @@ urlpatterns = [
     name="manage_complaints"
     ),
 
+    path(
+    "performance/",
+    views.lecturer_performance,
+    name="lecturer_performance",
+    ),
+
 
 ]

@@ -21,16 +21,16 @@ class Command(BaseCommand):
         )
 
         admin.set_password("admin123")
-
         admin.is_staff = True
         admin.is_superuser = True
         admin.is_active = True
-
         admin.save()
 
         self.stdout.write(
-            self.style.SUCCESS("✓ Administrator created successfully.")
-    )
+            self.style.SUCCESS(
+                f"✓ Administrator {'created' if created else 'updated'} successfully."
+            )
+        )
 
         # ===========================
         # STUDENTS

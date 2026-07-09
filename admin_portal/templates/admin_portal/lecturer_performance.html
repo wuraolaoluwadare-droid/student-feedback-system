@@ -1,0 +1,79 @@
+{% extends 'admin_portal/base_admin.html' %}
+
+{% block title %}Lecturer Performance{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+📊 Lecturer Performance Report
+</h2>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-striped">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Lecturer</th>
+
+<th>Feedback</th>
+
+<th>Teaching</th>
+
+<th>Communication</th>
+
+<th>Punctuality</th>
+
+<th>Materials</th>
+
+<th>Overall</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for item in performance %}
+
+<tr>
+
+<td>{{ item.lecturer.full_name }}</td>
+
+<td>{{ item.feedbacks }}</td>
+
+<td>{{ item.teaching }}</td>
+
+<td>{{ item.communication }}</td>
+
+<td>{{ item.punctuality }}</td>
+
+<td>{{ item.material }}</td>
+
+<td>
+
+<strong class="text-success">
+
+⭐ {{ item.overall }}
+
+</strong>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}
