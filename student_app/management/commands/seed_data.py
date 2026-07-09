@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 
+from admin_portal import admin
 from student_app.models import Student
 from lecturer_app.models import Lecturer
 from course_app.models import Course
@@ -10,6 +11,26 @@ class Command(BaseCommand):
     help = "Seed demo data (Students, Lecturers and Courses)"
 
     def handle(self, *args, **kwargs):
+
+        # ===========================
+        # ADMIN USER
+        # ===========================
+
+        admin, created = User.objects.get_or_create(
+            username="admin"
+        )
+
+        admin.set_password("admin123")
+
+        admin.is_staff = True
+        admin.is_superuser = True
+        admin.is_active = True
+
+        admin.save()
+
+        self.stdout.write(
+            self.style.SUCCESS("✓ Administrator created successfully.")
+    )
 
         # ===========================
         # STUDENTS
