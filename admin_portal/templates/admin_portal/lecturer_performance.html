@@ -5,96 +5,113 @@
 {% block content %}
 
 <h2 class="mb-4">
-📊 Lecturer Performance Report
+    📊 Lecturer Performance Report
 </h2>
 
 <div class="card shadow">
 
-<div class="card-body">
+    <div class="card-body">
 
-<table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-hover">
 
-<thead class="table-dark">
+            <thead class="table-dark">
 
-<tr>
+                <tr>
+                    <th>Rank</th>
+                    <th>Lecturer</th>
+                    <th>Feedback</th>
+                    <th>Teaching</th>
+                    <th>Communication</th>
+                    <th>Punctuality</th>
+                    <th>Materials</th>
+                    <th>Overall</th>
+                </tr>
 
-<th>Rank</th>
+            </thead>
 
-<th>Lecturer</th>
+            <tbody>
 
-<th>Feedback</th>
+                {% for item in performance %}
 
-<th>Teaching</th>
+                <tr>
 
-<th>Communication</th>
+                    <td>{{ forloop.counter }}</td>
 
-<th>Punctuality</th>
+                    <td>
+                        {{ item.lecturer.full_name }}
+                    </td>
 
-<th>Materials</th>
+                    <td>
+                        {{ item.feedbacks }}
+                    </td>
 
-<th>Overall</th>
+                    <td>
+                        {{ item.teaching }}
+                    </td>
 
-</tr>
+                    <td>
+                        {{ item.communication }}
+                    </td>
 
-</thead>
+                    <td>
+                        {{ item.punctuality }}
+                    </td>
 
-<tbody>
+                    <td>
+                        {{ item.material }}
+                    </td>
 
-{% for item in performance %}
+                    <td>
 
-<tr>
+                        {% if item.overall >= 4.5 %}
 
-<td>
+                            <span class="badge bg-success fs-6">
+                                ⭐⭐⭐⭐⭐ {{ item.overall }}
+                            </span>
 
-{{ forloop.counter }}
+                        {% elif item.overall >= 3.5 %}
 
-</td>
+                            <span class="badge bg-primary fs-6">
+                                ⭐⭐⭐⭐ {{ item.overall }}
+                            </span>
 
-{% if item.overall >= 4.5 %}
+                        {% elif item.overall >= 2.5 %}
 
-<span class="badge bg-success fs-6">
+                            <span class="badge bg-warning text-dark fs-6">
+                                ⭐⭐⭐ {{ item.overall }}
+                            </span>
 
-⭐⭐⭐⭐⭐ {{ item.overall }}
+                        {% else %}
 
-</span>
+                            <span class="badge bg-danger fs-6">
+                                ⭐⭐ {{ item.overall }}
+                            </span>
 
-{% elif item.overall >= 3.5 %}
+                        {% endif %}
 
-<span class="badge bg-primary fs-6">
+                    </td>
 
-⭐⭐⭐⭐ {{ item.overall }}
+                </tr>
 
-</span>
+                {% empty %}
 
-{% elif item.overall >= 2.5 %}
+                <tr>
 
-<span class="badge bg-warning text-dark fs-6">
+                    <td colspan="8" class="text-center text-muted">
 
-⭐⭐⭐ {{ item.overall }}
+                        No lecturer performance data available.
 
-</span>
+                    </td>
 
-{% else %}
+                </tr>
 
-<span class="badge bg-danger fs-6">
+                {% endfor %}
 
-⭐⭐ {{ item.overall }}
+            </tbody>
 
-</span>
+        </table>
 
-{% endif %}
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
-
-</div>
+    </div>
 
 </div>
 

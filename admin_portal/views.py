@@ -331,28 +331,21 @@ def lecturer_performance(request):
         ) / 4
 
         performance.append({
-
             "lecturer": lecturer,
-
             "feedbacks": total,
-
             "teaching": round(averages["teaching"] or 0, 1),
-
             "communication": round(averages["communication"] or 0, 1),
-
             "punctuality": round(averages["punctuality"] or 0, 1),
-
             "material": round(averages["material"] or 0, 1),
-
-            "overall": round(overall, 1)
-
+            "overall": round(overall, 1),
         })
 
-        performance = sorted(
-            performance,
-            key=lambda x: x["overall"],
-            reverse=True
-        )
+    # Sort AFTER all lecturers have been added
+    performance = sorted(
+        performance,
+        key=lambda x: x["overall"],
+        reverse=True
+    )
 
     return render(
         request,
